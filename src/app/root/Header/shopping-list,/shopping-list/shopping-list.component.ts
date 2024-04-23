@@ -7,6 +7,33 @@ import { Subscription } from 'rxjs';
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css',
+  animations: [
+    trigger('shopping-list', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          transform: 'translateX(0)',
+        })
+      ),
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-100px)',
+        }),
+        animate(300),
+      ]),
+      transition('* => void', [
+        animate(
+          300,
+          style({
+            opacity: 0,
+            transform: 'translateX(100px)',
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
